@@ -83,7 +83,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *vivaldi[]  = { "vivaldi-stable", NULL };
 static const char *passmenu[] = { "passmenu", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-l", "5", NULL };
-static const char *scrotwin[]  = { "sleep", "0.5", "&&", "scrot", "-s", NULL };
+static const char *scrotselection[] = { "sleep", "0.5", "&&", "scrot", "-s", "~/pics/screenshots/%Y-%m-%d-%s%w%h.jpg", NULL };
 static const char *manmenu[]  = { "manmenu", NULL };
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+2%", NULL };
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-2%", NULL };
@@ -116,11 +116,11 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
     { MODKEY,                       XK_w,      spawn,          {.v = vivaldi } },
     { MODKEY,                       XK_p,      spawn,          {.v = passmenu } },
-    { MODKEY,                       XK_z,      spawn,          {.v = scrotwin } },
+    { MODKEY,                       XK_Print,  spawn,          {.v = scrotselection } },
     { MODKEY,                       XK_c,      spawn,          {.v = manmenu } },
-	{ MODKEY,                       XK_F12,    spawn,          {.v = upvol   } },
-    { MODKEY,                       XK_F11,    spawn,          {.v = downvol } },
-	{ MODKEY,                       XK_F10,    spawn,          {.v = mutevol } },
+	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,          {.v = upvol   } },
+    { 0,                            XF86XK_AudioLowerVolume,   spawn,          {.v = downvol } },
+	{ 0,                            XF86XK_AudioMute,          spawn,          {.v = mutevol } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
