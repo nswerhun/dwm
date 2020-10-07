@@ -27,7 +27,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -52,20 +52,20 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 static const Layout layouts[] = {
     /* symbol     arrange function */
     { "[@]",      spiral },    /* first entry is default */
-    { "[]=",      tile },
     { "H[]",      deck },
-    { "[M]",      monocle },
-    { "[\\]",     dwindle },
-    { "TTT",      bstack },
-    { "===",      bstackhoriz },
     { "HHH",      grid },
-    { "###",      nrowgrid },
-    { "---",      horizgrid },
-    { ":::",      gaplessgrid },
-    { "|M|",      centeredmaster },
-    { ">M>",      centeredfloatingmaster },
-    { "><>",      NULL },    /* no layout function means floating behavior */
-    { NULL,       NULL },
+    /* { "[]=",      tile }, */
+    /* { "[M]",      monocle }, */
+    /* { "[\\]",     dwindle }, */
+    /* { "TTT",      bstack }, */
+    /* { "===",      bstackhoriz }, */
+    /* { "###",      nrowgrid }, */
+    /* { "---",      horizgrid }, */
+    /* { ":::",      gaplessgrid }, */
+    /* { "|M|",      centeredmaster }, */
+    /* { ">M>",      centeredfloatingmaster }, */
+    /* { "><>",      NULL },    /1* no layout function means floating behavior *1/ */
+    /* { NULL,       NULL }, */
 };
 
 /* key definitions */
