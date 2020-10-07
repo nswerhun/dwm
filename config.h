@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#define TERMCLASS "st-256color"
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -10,6 +12,7 @@ static const unsigned int gappiv    = 5;        /* vert inner gap between window
 static const unsigned int gappoh    = 5;        /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov    = 5;        /* vert outer gap between windows and screen edge */
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
+static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const char *fonts[]          = { "Roboto Mono:size=10", "Joypixels:size=10" };
 static const char dmenufont[]       = "Roboto Mono:size=10";
 static const char col_gray1[]       = "#222222";
@@ -24,20 +27,22 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+    /* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+    { "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
+    { "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+    { TERMCLASS, NULL,     NULL,           0,         0,          1,           0,        -1 },
+    { NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
@@ -46,11 +51,11 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
-    { "[]=",      tile },    /* first entry is default */
-    { "[M]",      monocle },
-    { "[@]",      spiral },
-    { "[\\]",     dwindle },
+    { "[@]",      spiral },    /* first entry is default */
+    { "[]=",      tile },
     { "H[]",      deck },
+    { "[M]",      monocle },
+    { "[\\]",     dwindle },
     { "TTT",      bstack },
     { "===",      bstackhoriz },
     { "HHH",      grid },
@@ -81,7 +86,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *browser[]  = { "waterfox-classic", NULL };
+static const char *browser[]  = { "waterfox-current", NULL };
 static const char *passmenu[] = { "passmenu", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-l", "5", "-i", NULL };
 static const char *scrotselection[] = { "sleep", "0.5", "&&", "scrot", "-s", "~/pics/screenshots/%Y-%m-%d-%s%w%h.jpg", NULL };
 static const char *manmenu[]  = { "manmenu", NULL };
